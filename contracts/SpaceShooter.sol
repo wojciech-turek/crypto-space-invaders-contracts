@@ -15,8 +15,6 @@ contract CryptoSpaceInvaders is
     uint256 public constant CREDITS = 0;
     uint256 public creditPrice = 0.1 ether;
 
-    mapping(address => uint256) public topScores;
-
     // add highest score that can be set
     uint256 public highestScore = 0;
     address public highestScorer = address(0);
