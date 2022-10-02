@@ -13,13 +13,13 @@ contract CryptoSpaceInvaders is
     ERC1155Supply
 {
     uint256 public constant CREDITS = 0;
-    uint256 public creditPrice = 0.1 ether;
+    uint256 public creditPrice = 1 ether;
 
     // add highest score that can be set
     uint256 public highestScore = 0;
     address public highestScorer = address(0);
 
-    uint256 public leagueDuration = 3 days;
+    uint256 public leagueDuration = 2 days;
 
     uint256 public leagueStart = 0;
 
@@ -39,6 +39,11 @@ contract CryptoSpaceInvaders is
     // Burn a single credit for playing the game
     // @param _id - the id of the token to burn
     function burnCredit(uint256 _id) public {
+        require(
+            leagueStart + leagueDuration < block.timestamp,
+            "League is not active"
+        );
+        require(leagueStart != 0, "Game has not started yet");
         _burn(_msgSender(), _id, 10**18);
     }
 
