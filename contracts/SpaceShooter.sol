@@ -40,7 +40,7 @@ contract CryptoSpaceInvaders is
     // @param _id - the id of the token to burn
     function burnCredit(uint256 _id) public {
         require(
-            leagueStart + leagueDuration < block.timestamp,
+            leagueStart + leagueDuration > block.timestamp,
             "League is not active"
         );
         require(leagueStart != 0, "Game has not started yet");
