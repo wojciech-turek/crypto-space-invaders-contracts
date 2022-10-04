@@ -5,7 +5,7 @@
       "chainId": "137",
       "contracts": {
         "CryptoSpaceInvaders": {
-          "address": "0xf403f0579BdbAe4A688a014960762EE98F7F1764",
+          "address": "0xEef42cF1d00F5440173F36855D633eC1140cee4c",
           "abi": [
             {
               "inputs": [],
