@@ -4,8 +4,8 @@
   "description": "Contracts for crypto space invaders game.",
   "main": "index.js",
   "scripts": {
-    "deploy": "npx hardhat deploy --network polygon-mainnet --export-all deployments.polygon.json",
-    "verify": "npx hardhat etherscan-verify --network polygon-mainnet --sleep"
+    "deploy": "npx hardhat deploy --network nahmii-testnet --export-all deployments.nahmii.json",
+    "verify": "npx hardhat etherscan-verify --network nahmii-testnet --sleep --api-url https://explorer.testnet.n3.nahmii.io"
   },
   "author": "",
   "license": "ISC",
