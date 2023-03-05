@@ -13,13 +13,13 @@ contract CryptoSpaceInvaders is
     ERC1155Supply
 {
     uint256 public constant CREDITS = 0;
-    uint256 public creditPrice = 1 ether;
+    uint256 public creditPrice = 0.01 ether;
 
     // add highest score that can be set
     uint256 public highestScore = 0;
     address public highestScorer = address(0);
 
-    uint256 public leagueDuration = 2 days;
+    uint256 public leagueDuration = 1 days;
 
     uint256 public leagueStart = 0;
 
@@ -31,10 +31,7 @@ contract CryptoSpaceInvaders is
 
     // We could add more types of tokens here for example NFT badges, NFT space ships with different stats, different types of weapons, etc.
 
-    // Below API does not exist, but is added as an example
-    constructor()
-        ERC1155("https://api.cryptospaceinvaders.com/api/token/{id}")
-    {}
+    constructor() ERC1155("") {}
 
     // Burn a single credit for playing the game
     // @param _id - the id of the token to burn
@@ -60,14 +57,9 @@ contract CryptoSpaceInvaders is
         _mint(_account, _id, _amount * (10**18), "");
 
         // send half of the value to the owner and allocate rest towards leagueReward
-        uint256 ownerShare = msg.value / 2;
+        uint256 ownerShare = msg.value / 3;
         leagueReward += msg.value - ownerShare;
         payable(owner()).transfer(ownerShare);
-    }
-
-    // Withdraw accumulated funds
-    function withdrawAccumulated() public onlyOwner {
-        payable(_msgSender()).transfer(address(this).balance);
     }
 
     // Allow users to sponsor the game
@@ -87,7 +79,7 @@ contract CryptoSpaceInvaders is
 
     // Sets the highest score
     // @param _score The new highest score
-    function setHighestScore(uint256 _score, address _scorer) public {
+    function setHighestScore(uint256 _score, address _scorer) public onlyOwner {
         require(_score > highestScore, "Score is not higher than current");
         require(
             _scorer != address(0),
