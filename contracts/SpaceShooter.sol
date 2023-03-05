@@ -18,15 +18,11 @@ contract CryptoSpaceInvaders is
     // add highest score that can be set
     uint256 public highestScore = 0;
     address public highestScorer = address(0);
-
     uint256 public leagueDuration = 1 days;
-
     uint256 public leagueStart = 0;
-
     uint256 public leagueNumber = 0;
-
     bytes32 public leagueSponsor = "";
-
+    uint256 public minSponsorAmount = 1 ether;
     uint256 public leagueReward = 0;
 
     // We could add more types of tokens here for example NFT badges, NFT space ships with different stats, different types of weapons, etc.
@@ -64,7 +60,7 @@ contract CryptoSpaceInvaders is
 
     // Allow users to sponsor the game
     function sponsorLeague(bytes32 _sponsorName) public payable {
-        require(msg.value >= 10 ether, "Insufficient value");
+        require(msg.value >= minSponsorAmount, "Insufficient value");
         require(leagueSponsor == "", "League already sponsored");
 
         leagueReward += msg.value;
@@ -140,6 +136,13 @@ contract CryptoSpaceInvaders is
         bytes memory data
     ) public onlyOwner {
         _mint(account, id, amount, data);
+    }
+
+    function updateMinSponsorAmount(uint256 _minSponsorAmount)
+        public
+        onlyOwner
+    {
+        minSponsorAmount = _minSponsorAmount;
     }
 
     // The following functions are overrides required by Solidity.
